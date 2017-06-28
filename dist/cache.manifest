@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# Time: Tue Jun 27 2017 16:19:07 GMT+0800 (CST)
+# 我是注释
+
+CACHE:
+public/css/vendor.css
+public/scripts/index.js
+public/scripts/xtag.js
+public/scripts/vendor.js
+
+NETWORK:
+http://localhost:3000/ *
+http://192.168.144.223:3000/ *
