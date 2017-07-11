@@ -19,5 +19,7 @@ app.context.render = co.wrap(render({
   writeBody: false
 }));
 app.use(serve(path.join(__dirname)));
-app.listen(3000);
+app.listen(3000,function(){
+    console.log('process.pid:'+process.pid);
+});
 export default app;

@@ -4,6 +4,12 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Manifest= require('webpack-manifest');
+const cssnext = require('postcss-cssnext');
+const cssvariables = require('postcss-css-variables');
+const precss = require('precss');
+const apply = require('postcss-apply');
+const customMedia = require("postcss-custom-media")
+
 const dev = {
     entry: {
         index: ['./src/public/scripts/index.es', './src/public/scripts/function.es'],
@@ -25,9 +31,27 @@ const dev = {
                     "stage-3"
                 ]
             }
-        }, {
-            test: /\.css$/,
-            loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
+        },{
+            //设置对应的资源后缀.
+            test: /\.(css)$/,
+            //设置后缀对应的加载器.
+            loader: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{ loader: 'css-loader' }, {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: function() {
+                            return [
+                                precss({ browsers: [' Firefox ESR'] ,cascade: true}),
+                                cssnext({}),
+                                cssvariables({}),
+                                // apply({}),
+                                customMedia({})
+                            ];
+                        }
+                    }
+                }]
+            })
         }]
     },
     plugins: [
